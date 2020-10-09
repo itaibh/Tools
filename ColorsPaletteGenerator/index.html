@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @media print {
+            body,
+            html {
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        svg {
+            display: block;
+            margin-bottom: 3mm;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var step = 10;
+        var itemSH = 190 / (180 / step);
+        var itemSV = 285 / (90 / step) / 3;
+        console.log("item size H", itemSH)
+        console.log("item size V", itemSV)
+        var size = Math.min(itemSH, itemSV);
+        console.log("size: ", size);
+        for (var s = 20; s <= 100; s += 20) {
+            var h = 0;
+            for (var part = 0; part < 2; part++) {
+                var svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+                var x = 0;
+                for (var i = 0; i < 180; i += step, h += step) {
+                    var y = 0;
+                    for (var l = step; l < 100; l += step) {
+                        var rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                        rect.style.fill = 'hsl(' + h + ',' + s + '%,' + l + '%)';
+                        rect.setAttribute('width', size + 'mm');
+                        rect.setAttribute('height', size + 'mm');
+                        rect.setAttribute('x', (x * (size + 1)) + 'mm');
+                        rect.setAttribute('y', (y * size) + 'mm');
+                        svg.appendChild(rect);
+                        y++;
+                    }
+                    x++;
+                }
+                svg.setAttribute('width', (x * (size + 1)) + 'mm');
+                svg.setAttribute('height', (y * size) + 'mm');
+                document.body.appendChild(svg);
+            }
+        }
+    </script>
+</body>
+
+</html>
