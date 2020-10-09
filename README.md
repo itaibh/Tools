@@ -1,4 +1,4 @@
 # Tools
 ## Various Tools
 
-* [Colors Palette Generator](ColorsPaletteGenerator/)
+* [Colors Palette Generator](https://itaibh.github.io/Tools/ColorsPaletteGenerator/)
