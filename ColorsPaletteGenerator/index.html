@@ -4,6 +4,7 @@
 <head>
     <style>
         @media print {
+
             body,
             html {
                 padding: 0;
@@ -31,10 +32,40 @@
             var h = 0;
             for (var part = 0; part < 2; part++) {
                 var svg = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+                svg.style.fontSize = (size / 4) + 'mm';
                 var x = 0;
                 for (var i = 0; i < 180; i += step, h += step) {
                     var y = 0;
+
+                    var rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+                    rect.style.fill = 'white';
+                    rect.style.stroke = 'black';
+                    rect.setAttribute('width', size + 'mm');
+                    rect.setAttribute('height', size + 'mm');
+                    rect.setAttribute('x', (x * (size + 1)) + 'mm');
+                    rect.setAttribute('y', (y * size) + 'mm');
+                    svg.appendChild(rect);
+
+                    var text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+                    text.setAttribute('x', (x * (size + 1) + 1) + 'mm');
+                    text.setAttribute('y', ((size / 3) - 0.75) + 'mm');
+                    text.innerHTML = 'H:' + h;
+                    svg.appendChild(text);
+
+                    var text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+                    text.setAttribute('x', (x * (size + 1) + 1) + 'mm');
+                    text.setAttribute('y', ((size * 2) / 3 - 0.75) + 'mm');
+                    text.innerHTML = 'S:' + s;
+                    svg.appendChild(text);
+
+                    var text = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+                    text.setAttribute('x', (x * (size + 1) + 1) + 'mm');
+                    text.setAttribute('y', (size - 0.75) + 'mm');
+                    text.innerHTML = 'L:' + step + '-' + (100 - step);
+                    svg.appendChild(text);
+
                     for (var l = step; l < 100; l += step) {
+                        y++;
                         var rect = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
                         rect.style.fill = 'hsl(' + h + ',' + s + '%,' + l + '%)';
                         rect.setAttribute('width', size + 'mm');
@@ -42,7 +73,6 @@
                         rect.setAttribute('x', (x * (size + 1)) + 'mm');
                         rect.setAttribute('y', (y * size) + 'mm');
                         svg.appendChild(rect);
-                        y++;
                     }
                     x++;
                 }
